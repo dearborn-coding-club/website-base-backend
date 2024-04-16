@@ -1,11 +1,18 @@
 # Dearborn Coding Club's Backend Django Server
 - A backend webserver for serving static assets and handling requests for dearborncodingclub.com.
 
-## Install python3
-- On mac, run `brew install python` ([docs](https://docs.python-guide.org/starting/install3/osx/)).
+## Getting Set Up
+First, install direnv, as specified in the installation docs. ([docs](https://direnv.net/docs/installation.html)).
 
-## Install Django
-- Run `python -m pip install Django` ([docs](https://docs.djangoproject.com/en/5.0/topics/install/)).
+Next, install pyenv, and add $HOME/.pyenv/bin to the path of your respective shell. Then install Python 3.11.2
+(or whatever version of Python is decided on for this repository).
+
+Then, cd into the root directory of this repository and then type
+
+```sh
+direnv allow
+```
+
 ## How to run dev server
 - Cd into `/server`
      - `cd server`
