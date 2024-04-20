@@ -2,16 +2,17 @@
 - A backend webserver for serving static assets and handling requests for dearborncodingclub.com.
 
 ## Getting Set Up
-First, install direnv, as specified in the installation docs. ([docs](https://direnv.net/docs/installation.html)).
+- First, install direnv, as specified in the installation docs. ([docs](https://direnv.net/docs/installation.html)).
+     - As of the latest docs, you can run `curl -sfL https://direnv.net/install.sh | bash`.
 
-Next, install pyenv, and add $HOME/.pyenv/bin to the path of your respective shell. Then install Python 3.11.2
+- Next, install pyenv, and add `$HOME/.pyenv/bin` to the path of your respective shell. Then install Python 3.11.2
 (or whatever version of Python is decided on for this repository).
 
-Then, cd into the root directory of this repository and then type
+- Then, cd into the root directory of this repository and then type
 
-```sh
-direnv allow
-```
+     ```sh
+     direnv allow
+     ```
 
 ## How to run dev server
 - Cd into `/server`
