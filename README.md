@@ -7,7 +7,11 @@
 - Run `docker run -p 8000:8000 --rm -it $(docker build -q .)`.
 - Go to http://localhost:8000 in your web browser and view the website locally! 🎉
 
-## To deploy
-- install `flyctl`
-    - `brew install flyctl`
-- run `flyctl deploy`
+## Running the application on a different domain
+- If you want to run the application on a different domain, be sure to add to the `settings.py` file under `ALLOWED_HOSTS`.
+
+## Deploy
+- Right now, only the owner of the `fly.io` can deploy. In the future, we'd like the deployment to occur when merging a pull request.
+- Install `flyctl`
+    - `brew install flyctl`.
+- Run `flyctl deploy`.
