@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j*1@f05-)o5!3+^kzs@r#y+$atj=!0q#rv%5wr34%3*3qw_d60
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["website-base-backend.fly.dev", "dearborncodingclub.com"]
+ALLOWED_HOSTS = ["website-base-backend.fly.dev", "dearborncodingclub.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
