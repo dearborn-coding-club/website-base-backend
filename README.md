@@ -1,5 +1,7 @@
 # Dearborn Coding Club's Backend Django Server
 - A backend webserver for serving static assets and handling requests for dearborncodingclub.com.
+- Check out the slack channel [here](https://dearborncodingclub.slack.com/).
+- Check out the meetup group [here](https://dearborncodingclub.slack.com/).
 
 ## Getting Set Up In Docker (Recommended)
 - Ensure you have docker [desktop installed locally](https://www.docker.com/products/docker-desktop/).
