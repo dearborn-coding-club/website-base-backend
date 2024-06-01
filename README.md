@@ -5,6 +5,7 @@
 - Ensure you have docker [desktop installed locally](https://www.docker.com/products/docker-desktop/).
 - Run `docker login`.
 - Run `docker run -p 8000:8000 --rm -it $(docker build -q .)`.
+    - Optionally, you can run `make run`.
 - Go to http://localhost:8000 in your web browser and view the website locally! 🎉
 
 ## Running the application on a different domain

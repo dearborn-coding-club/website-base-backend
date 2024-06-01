@@ -1,4 +1,4 @@
-.PHONY: RUN
+.PHONY: run
 
-RUN:
+run:
 	./docker-run.sh
