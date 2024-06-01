@@ -7,7 +7,8 @@
     <title>Dearborn Coding Club</title>
   </head>
   <body>
-    ~~ logo image here ~~
+    {% load static %}
+    <img src="{% static 'dccdesign1.svg' %}" alt="My image">
     {% block content %}
     {% endblock %}
   </body>
