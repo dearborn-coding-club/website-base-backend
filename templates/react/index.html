@@ -1,5 +1,31 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block head %}
+  {% if debug %}
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
 
+    <!-- If you're using vite with React, this next script will be needed for HMR -->
+    <script type="module">
+      import RefreshRuntime from 'http://localhost:5173/@react-refresh'
+
+      if (RefreshRuntime) {
+        RefreshRuntime.injectIntoGlobalHook(window)
+        window.$RefreshReg$ = () => {
+        }
+        window.$RefreshSig$ = () => (type) => type
+        window.__vite_plugin_react_preamble_installed__ = true
+      }
+    </script>
+  {% endif %}
+{% endblock head %}
 {% block content %}
-<h1>Welcome to Dearborn Coding Club!</h1>
-{% endblock content %}
+  <noscript>This page requires javascript to run. Please, enable javascript.</noscript>
+  <div id="root"></div>
+  {% if debug %}
+    <!-- This url will be different for each type of app. Point it to your main js file. -->
+    <script type="module" src="http://localhost:5173/react/main.tsx"></script>
+  {% endif %}
+{% endblock %}
+
+</body>
+
+</html>
