@@ -15,5 +15,5 @@ run_django: ## run backend application
 run:
 	make -j2 run_django run_frontend
 
-# run:
-	# ./docker-run.sh
+run-docker:
+	./docker-run.sh

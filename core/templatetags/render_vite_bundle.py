@@ -10,7 +10,7 @@ from typing import Any
 register = template.Library()
 
 def load_json_from_dist(json_filename: str = "manifest.json") -> Any:
-    manifest_file_path = Path(str(settings.VITE_APP_DIR), "dist", json_filename)
+    manifest_file_path = Path(str(settings.VITE_APP_DIR), "dist", ".vite", json_filename)
     if not manifest_file_path.exists():
         raise Exception(
             f"Vite manifest file not found on path: {str(manifest_file_path)}"
@@ -40,7 +40,7 @@ def render_vite_bundle() -> str:
 
     imports_files = "".join(
         [
-            f'<script type="module" src="/static{manifest[file]["file"]}"</script>'
+            f'<script type="module" src="/static/{manifest[file]["file"]}"></script>'
             for file in manifest["index.html"]["imports"]
         ]
     )

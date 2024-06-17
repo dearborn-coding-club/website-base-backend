@@ -95,7 +95,7 @@ DATABASES = {
 }
 
 # Vite App Dir
-VITE_APP_DIR = BASE_DIR / "src"
+VITE_APP_DIR = BASE_DIR
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),

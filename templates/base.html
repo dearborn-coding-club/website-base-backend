@@ -1,6 +1,5 @@
-{% load render_vite_bundle %}
 {% load i18n %}
-
+{% load render_vite_bundle %}
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
@@ -12,10 +11,11 @@
   <title>Dearborn Coding Club</title>
   {% block head %}
   {% endblock head %}
-
 </head>
 
 <body>
   {% block content %}
   {% endblock content %}
+  {% render_vite_bundle %}
+
 </body>

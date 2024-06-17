@@ -1,3 +1,9 @@
 fly.toml
 .git/
 *.sqlite3
+bin/
+dist/
+lib/
+**/__pycache__
+**/pyvenv.cfg
+node_modules/
