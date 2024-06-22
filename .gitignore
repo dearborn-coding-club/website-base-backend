@@ -1,2 +1,7 @@
 **/__pycache__
 **/db.sqlite3
+**/pyvenv.cfg
+bin/
+dist/
+lib/
+node_modules/
