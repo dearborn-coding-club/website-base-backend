@@ -7,7 +7,7 @@ RUN python -m pip install -r requirements.txt
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 # USER docker
 RUN apt update
-RUN apt upgrade
+RUN apt upgrade -y
 RUN apt -y install npm
 RUN npm install
 RUN npm run build
