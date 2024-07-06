@@ -27,6 +27,10 @@
 
 - Go to http://localhost:8000 in your web browser and view the website locally! 🎉
 
+## Accessing Staging
+- Locally, hit [127.0.0.1/staging](127.0.0.1/staging)
+- For the production site, hit [dearborncodingclub.com/staging](dearborncodingclub.com/staging)
+
 ## Running the application on a different domain
 - If you want to run the application on a different domain, be sure to add to the `settings.py` file under `ALLOWED_HOSTS`.
 
