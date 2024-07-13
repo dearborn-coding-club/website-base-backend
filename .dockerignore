@@ -6,4 +6,3 @@ dist/
 lib/
 **/__pycache__
 **/pyvenv.cfg
-node_modules/
