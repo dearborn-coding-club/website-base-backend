@@ -31,12 +31,18 @@
 - Locally, hit [127.0.0.1/staging](127.0.0.1/staging)
 - For the production site, hit [dearborncodingclub.com/staging](dearborncodingclub.com/staging)
 
+## Deploying to Fly.io
+We currently use [Fly.io](https://fly.io) run the service.
+
+We deploy the app via GitHub Actions whenever a PR merges into main (points to https://api.dearborncodingclub.com).
+ 
+You can also deploy the application manually by executing `flyctl deploy` from the repo folder, after logging in to an admin account locally (`flyctl auth login`).
+- You can install the `flyctl` CLI tool too.
+
+## (Re)generating TLS Certificates
+[Fly.io](https://fly.io) handles our TLS certificates as part of their managed hosting service. We have manually generated a Let's Encrypt certificate using:
+
+`fly certs add dearborncodingclub.com`
+
 ## Running the application on a different domain
 - If you want to run the application on a different domain, be sure to add to the `settings.py` file under `ALLOWED_HOSTS`.
-
-## Deploy
-- To deploy changes to the website (dearborncodingclub.com), merge a pull request to `main`.
-- In order to deploy changes to the website manually, make sure you're logged into the fly.io site (https://fly.io/apps/website-base-backend) locally.
-- Install `flyctl`
-    - `brew install flyctl`.
-- Run `flyctl deploy`.
