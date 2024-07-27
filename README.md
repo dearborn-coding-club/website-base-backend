@@ -35,7 +35,6 @@
 We currently use [Fly.io](https://fly.io) run the service.
 
 We deploy the app via GitHub Actions whenever a PR merges into main (points to https://api.dearborncodingclub.com).
-
  
 You can also deploy the application manually by executing `flyctl deploy` from the repo folder, after logging in to an admin account locally (`flyctl auth login`).
 - You can install the `flyctl` CLI tool too.
