@@ -1,16 +1,12 @@
 
-.PHONY: build_frontend run_frontend run_django run install_dependencies
+.PHONY: run-django run run-docker
 
-NPM=pnpm
 
-build_frontend: ## build frontend application
-	$(NPM) run build
-
-run_frontend: ## run frontend application
-	$(NPM) run dev
-
-run_django: ## run backend application
+run-django: ## run backend application
 	python manage.py runserver
+
+# run:
+# 	make -j2 run_django run_frontend
 
 run:
 	make -j2 run_django run_frontend
