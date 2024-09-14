@@ -9,7 +9,7 @@ run-django: ## run backend application
 # 	make -j2 run_django run_frontend
 
 run:
-	make -j2 run_django run_frontend
+	make -j2 run-django
 
 run-docker:
 	./docker-run.sh
