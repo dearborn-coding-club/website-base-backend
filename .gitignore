@@ -1,5 +1,6 @@
 **/__pycache__
 **/db.sqlite3
 **/pyvenv.cfg
+.DS_Store
 bin/
 lib/
