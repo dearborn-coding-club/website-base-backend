@@ -1,5 +1,30 @@
 # Dearborn Coding Club's Backend Django Server
-A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com.
+A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com/notes.
+
+
+## Architecture
+```
+website-base-backend/
+|--- Dockerfile         # Docker configuration
+|--- Makefile           # Helper file to run scripts
+|--- manage.py          # Used to run Django server
+|--- core/              # Core Django app functionionalities
+    |--- migrations/
+    |--- templatetags/
+    |--- admin.py
+    |--- apps.py
+    |--- models.py
+    |--- serializers.py
+    |--- tests.py
+    |--- views.py
+|--- public_api         # `api.dearborncodingclub` funcitonalities
+    |--- asgi.py
+    |--- settings.py
+    |--- urls.py
+    |--- views.py
+    |--- wsgi.py
+|--- server             # Database config?
+```
 
 Feel free to check out the slack channel [here](https://dearborncodingclub.slack.com) and our meetup group [here](https://www.meetup.com/dearborn-coding-club).
 
