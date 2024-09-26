@@ -6,6 +6,7 @@
 2. [Getting Started](#getting-started)
     * [Running with Virtual Env](#running-with-virtual-env-recommended)
     * [Running with Docker](#running-in-docker)
+    * [Running migrations](#running-migrations)
 3. [Deploying to Fly.io](#deploying-to-flyio)
 4. [Regenerating Certs](#regenerating-tls-certificates)
 5. [Running on a different domain](#running-the-application-on-a-different-domain)
@@ -64,6 +65,12 @@ Feel free to check out the slack channel [here](https://dearborncodingclub.slack
     - Optionally, you can run `make run`.
 
 - Go to http://localhost:8000 in your web browser and view backend endpoint locally.
+
+### Running Migrations
+---
+In order to run locally with a correctly seeded database, you'll need to run migrations. In order to do this, run the following command.
+
+`./managy.py migrate`
 
 ### Deploying to Fly.io
 ---
