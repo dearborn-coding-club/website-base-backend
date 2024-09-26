@@ -10,6 +10,7 @@
 3. [Deploying to Fly.io](#deploying-to-flyio)
 4. [Regenerating Certs](#regenerating-tls-certificates)
 5. [Running on a different domain](#running-the-application-on-a-different-domain)
+6. [API Docs](./docs/APIs.md)
 
 ### Architecture
 ---
