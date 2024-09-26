@@ -1,5 +1,5 @@
 # 🐍 Djearborn - Dearborn Coding Club's Backend Django Server
-🐍 A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com/notes.
+🐍 A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com/notes. Please ask to join our slack channel [here](https://dearborncodingclub.slack.com)! We'd also love to have you hang out in our meetup group [here](https://www.meetup.com/dearborn-coding-club).
 
 ## Table of Contents
 1. [Architecture](#architecture)
@@ -12,6 +12,20 @@
 
 ### Architecture
 ---
+
+**System Design**
+```mermaid
+flowchart LR
+    markdown["`_Front-end_`"]
+    djangoApp["`_Djearborn_ (Django App)`"]
+    markdown -->|API Request| djangoApp
+    djangoApp -->|ORM Communication| Supabase
+    djangoApp --> |API Request|meetup["Meetup's Public API"]
+    Supabase --> PostgreSQL[("PostgreSQL DB")]
+```
+
+**Folder Structure**
+
 ```
 website-base-backend/
 |--- Dockerfile         # Docker configuration
@@ -34,8 +48,6 @@ website-base-backend/
     |--- wsgi.py
 |--- server             # Database config
 ```
-
-Feel free to check out the slack channel [here](https://dearborncodingclub.slack.com) and our meetup group [here](https://www.meetup.com/dearborn-coding-club).
 
 ### Getting Started
 --- 
