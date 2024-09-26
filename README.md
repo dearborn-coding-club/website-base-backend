@@ -1,7 +1,7 @@
 # 🐍 Djearborn - Dearborn Coding Club's Backend Django Server
 🐍 A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com/notes.
 
-## Table of Content
+## Table of Contents
 1. [Architecture](#architecture)
 2. [Getting Started](#getting-started)
     * [Running with Virtual Env](#running-with-virtual-env-recommended)
@@ -17,7 +17,7 @@ website-base-backend/
 |--- Dockerfile         # Docker configuration
 |--- Makefile           # Helper file to run scripts
 |--- manage.py          # Used to run Django server
-|--- core/              # Core Django app functionionalities
+|--- core/              # Core Django app features
     |--- migrations/
     |--- templatetags/
     |--- admin.py
@@ -26,13 +26,13 @@ website-base-backend/
     |--- serializers.py
     |--- tests.py
     |--- views.py
-|--- public_api         # `api.dearborncodingclub` funcitonalities
+|--- public_api         # `api.dearborncodingclub` features
     |--- asgi.py
     |--- settings.py
     |--- urls.py
     |--- views.py
     |--- wsgi.py
-|--- server             # Database config?
+|--- server             # Database config
 ```
 
 Feel free to check out the slack channel [here](https://dearborncodingclub.slack.com) and our meetup group [here](https://www.meetup.com/dearborn-coding-club).
@@ -42,18 +42,15 @@ Feel free to check out the slack channel [here](https://dearborncodingclub.slack
 ### Running with Virtual Env (recommended)
 1. Make sure you install `python3` on your local machine and  have a virtual environment set up.
     - Run python environment
-        - `python3 -m venv ./`.
+        - `python -m venv ./` or `python3 -m venv ./` if you have `Python3`.
     - Activate local python env.
         - `source bin/activate`.
     - Upgrade pip
-        - `python3 -m pip install --upgrade pip`.
+        - `python -m pip install --upgrade pip` or `python3 -m pip install --upgrade pip` if you have `Python3`.
     - Install python dependencies
-        - `python3 -m pip install -r requirements.txt`.
-    - Install django-cors-headers
-        - `python3 -m pip install django-cors-headers==4.3.1`.
+        - `python -m pip install -r requirements.txt` or `python3 -m pip install -r requirements.txt` if you have `Python3`.
     
-    
-    - If you don't have the `python3` alias set, configure the from alias `python3` to `python`.
+    - If you don't have the `python3` alias set, you can configure the from alias for `python3` to point to your `python` installation.
         - `echo 'alias python="python3"' >> ~/.zshrc && source ~/.zshrc;`
 2. Run the application.
     - Run `make run` or
