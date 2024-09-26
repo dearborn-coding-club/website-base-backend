@@ -1,9 +1,15 @@
-from django.http import JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import render
 
 
-def meetup_view():
+def notes_view(_: HttpRequest) -> JsonResponse:
     data = {
         "message": "Welcome to the meetup page!",
         "status": "success"
     }
     return JsonResponse(data)
+
+
+def home_view(request: HttpRequest) -> HttpResponse:
+    return render(request, "react/index.html", {})
+
