@@ -3,6 +3,8 @@
 
 ## Table of Contents
 1. [Architecture](#architecture)
+    * [System Design](#system-design)
+    * [Folder Structure](#folder-structure)
 2. [Getting Started](#getting-started)
     * [Running with Virtual Env](#running-with-virtual-env-recommended)
     * [Running with Docker](#running-in-docker)
@@ -13,7 +15,7 @@
 ### Architecture
 ---
 
-**System Design**
+#### System Design
 ```mermaid
 flowchart LR
     markdown["`_Front-end_`"]
@@ -24,7 +26,7 @@ flowchart LR
     Supabase --> PostgreSQL[("PostgreSQL DB")]
 ```
 
-**Folder Structure**
+#### Folder Structure
 
 ```
 website-base-backend/
