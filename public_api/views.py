@@ -9,7 +9,3 @@ def notes_view(_: HttpRequest) -> JsonResponse:
     }
     return JsonResponse(data)
 
-
-def home_view(request: HttpRequest) -> HttpResponse:
-    return render(request, "react/index.html", {})
-
