@@ -37,7 +37,6 @@ website-base-backend/
 |--- manage.py          # Used to run Django server
 |--- core/              # Core Django app features
     |--- migrations/
-    |--- templatetags/
     |--- admin.py
     |--- apps.py
     |--- models.py
