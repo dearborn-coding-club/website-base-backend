@@ -9,6 +9,7 @@
     * [Running with Virtual Env](#running-with-virtual-env-recommended)
     * [Running with Docker](#running-in-docker)
     * [Running migrations](#running-migrations)
+    * [Running linters](#running-linters)
 3. [Deploying to Fly.io](#deploying-to-flyio)
 4. [Regenerating Certs](#regenerating-tls-certificates)
 5. [Running on a different domain](#running-the-application-on-a-different-domain)
@@ -86,6 +87,10 @@ website-base-backend/
 In order to run locally with a correctly seeded database, you'll need to run migrations. In order to do this, run the following command.
 
 `./managy.py migrate`
+
+### Running Linters
+---
+To run the linters, execute the `flake8` command.
 
 ### Deploying to Fly.io
 ---
