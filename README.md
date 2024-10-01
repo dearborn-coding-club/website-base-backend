@@ -1,4 +1,8 @@
 # 🐍 Djearborn - Dearborn Coding Club's Backend Django Server
+> A neat lil' backend.
+
+![Fly.io Build](https://github.com/dearborn-coding-club/website-base-backend/actions/workflows/fly.yml/badge.svg)
+
 🐍 A Django backend API webserver for serving static assets and handling requests for dearborncodingclub.com. It is currently hooked up to https://api.dearborncodingclub.com/notes. Please ask to join our slack channel [here](https://dearborncodingclub.slack.com)! We'd also love to have you hang out in our meetup group [here](https://www.meetup.com/dearborn-coding-club).
 
 ## Table of Contents
@@ -8,7 +12,7 @@
 2. [Getting Started](#getting-started)
     * [Running with Virtual Env](#running-with-virtual-env-recommended)
     * [Running with Docker](#running-in-docker)
-    * [Running migrations](#running-migrations)
+    * [Running Migrations](#running-migrations)
     * [Running linters](#running-linters)
 3. [Deploying to Fly.io](#deploying-to-flyio)
 4. [Regenerating Certs](#regenerating-tls-certificates)
