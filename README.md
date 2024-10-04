@@ -38,21 +38,22 @@ flowchart LR
 ```
 website-base-backend/
 |--- Dockerfile         # Docker configuration
-|--- Makefile           # Helper file to run scripts
-|--- manage.py          # Used to run Django server
-|--- core/              # Core Django app features
-    |--- migrations/
-    |--- admin.py
+|--- Makefile           # Helper file to run scripts locally
+|--- manage.py          # Command-line tool for managing Django server
+|--- core/              # Core Django application features
+    |--- migrations/    # Database migrations for scaffolding database
+    |--- admin.py       # Admin page configuration
     |--- apps.py
-    |--- models.py
+    |--- models.py      # ORM data models used for interfacing with database
     |--- serializers.py
-    |--- tests.py
-    |--- views.py
-|--- public_api         # `api.dearborncodingclub` features
+    |--- tests.py       # Application unit tests
+    |--- urls.py        # Submodule routing configuration; pulled in to `public_api/urls.py`
+    |--- views.py       # HTTP Response views; contains API response code
+|--- public_api         # `api.dearborncodingclub` Django application
     |--- asgi.py
-    |--- settings.py
-    |--- urls.py
-    |--- views.py
+    |--- settings.py    # Server configuration
+    |--- urls.py        # Primary routing configuration
+    |--- views.py       # HTTP Response views; primary
     |--- wsgi.py
 |--- server             # Database config
 ```
