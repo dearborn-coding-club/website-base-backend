@@ -90,8 +90,12 @@ WSGI_APPLICATION = 'public_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'PORT': os.getenv('SUPABASE_POSGRESQL_PORT'),
+        'USER': os.getenv('SUPABASE_POSTGRESQL_USER'),
+        'HOST': os.getenv('SUPABASE_POSGRESQL_HOST'),
+        'PASSWORD': os.getenv('SUPABASE_POSTGRESQL_PASSWORD')
     }
 }
 

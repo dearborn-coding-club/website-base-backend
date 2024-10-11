@@ -2,5 +2,6 @@
 **/db.sqlite3
 **/pyvenv.cfg
 .DS_Store
+.env
 bin/
 lib/
