@@ -8,4 +8,3 @@ def notes_view(_: HttpRequest) -> JsonResponse:
         "status": "success"
     }
     return JsonResponse(data)
-
