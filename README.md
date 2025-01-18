@@ -90,7 +90,7 @@ website-base-backend/
 ---
 In order to run locally with a correctly seeded database, you'll need to run migrations. In order to do this, run the following command.
 
-`./managy.py migrate`
+`./manage.py migrate`
 
 ### Running Linters
 ---

@@ -12,6 +12,10 @@ class Note (models.Model):
         return self.content
 
 
+class RefreshToken (models.Model):
+    token = models.TextField()
+
+
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
