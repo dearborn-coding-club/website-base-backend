@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('notes/', views.notes_view, name='notes'),
+    path('leetcode/', views.leetcode_view, name="leetcode"),
     path('', include('core.urls')),
 ]
