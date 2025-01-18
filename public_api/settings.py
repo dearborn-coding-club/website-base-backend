@@ -26,6 +26,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'accounts.DCCUser'  # 'app_name.ModelName'
+
 ALLOWED_HOSTS = ["website-base-backend.fly.dev", "api.dearborncodingclub.com", "localhost", "127.0.0.1"]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'core',
     "corsheaders",
     'rest_framework',
+    'accounts'
 ]
 
 MIDDLEWARE = [
