@@ -1,5 +1,6 @@
 from django.db import models
 from rest_framework import serializers
+from django.contrib.auth.models import AbstractUser
 
 
 class Note (models.Model):
@@ -10,6 +11,7 @@ class Note (models.Model):
 
     def get_content(self):
         return self.content
+
 
 
 class RefreshToken (models.Model):
