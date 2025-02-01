@@ -33,8 +33,7 @@ def leetcode_view(_: HttpRequest) -> JsonResponse:
     }
   }
 }
-    
+
 """
     response = requests.get(url=url, json={"query": global_data, "variables": {"username": "MgenGlder23"}, "operationName": "userSessionProgress"}, timeout=10)
-    print("response status code: ", response)
     return JsonResponse(response.json())

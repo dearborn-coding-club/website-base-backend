@@ -23,4 +23,5 @@ urlpatterns = [
     path('notes/', views.notes_view, name='notes'),
     path('leetcode/', views.leetcode_view, name="leetcode"),
     path('', include('core.urls')),
+    path('', include('accounts.urls'))
 ]
