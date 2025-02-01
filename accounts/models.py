@@ -15,12 +15,6 @@ class DCCPermission(Permission):
     description = models.TextField(blank=True)
 
 class DCCGroup(Group):
-    # name = models.CharField(max_length=150, unique=True)
-    # permissions = models.ManyToManyField(
-    #     DCCPermission,
-    #     verbose_name='permissions',
-    #     blank=True,
-    # )
     description = models.TextField(blank=True)
     group_permissions = models.ManyToManyField(
         DCCPermission,
