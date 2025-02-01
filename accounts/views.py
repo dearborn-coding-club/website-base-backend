@@ -1,9 +1,13 @@
-from rest_framework import viewsets
-from .models import Profile
+from rest_framework import viewsets, status
+from .models import Profile, DCCUser
 import requests
 from rest_framework.response import Response
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, UserSerializer
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = DCCUser.objects.all()
+    serializer_class = UserSerializer
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -42,4 +46,3 @@ class ProfileViewSet(viewsets.ModelViewSet):
             response = requests.get(url=url, json={"query": global_data, "variables": {"username": "MgenGlder23"}, "operationName": "userSessionProgress"}, timeout=10)
             note['leetcode_stats'] = response.json()
         return Response(data)
-
