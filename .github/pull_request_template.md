@@ -1,10 +1,7 @@
-Closes <Issue link>
-
-## Context
-<Background to why this work was done, written in sentances>
+Closes <Related issue>
 
 ## Summary
 - <Bulleted list of what the PR does>
 
-## Screenshots
-<If applicable, attach screenshots of the changes.>
+## Context
+- <Relevant backstory for understanding the purpose of this PR>
