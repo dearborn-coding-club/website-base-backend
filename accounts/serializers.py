@@ -12,4 +12,5 @@ class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
     class Meta:
         model = DCCUser
-        fields = ['id', 'profile', 'password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'bio', 'date_joined', 'bio', 'birthdate']
+        fields = ['id', 'profile', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'bio', 'date_joined', 'bio', 'birthdate']
+        extra_kwargs = {'password': {'write_only': True}}
