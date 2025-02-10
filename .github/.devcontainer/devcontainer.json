@@ -1,0 +1,9 @@
+{
+    "name": "Django Dev",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "extensions": ["ms-python.python", "ms-python.vscode-pylance"],
+    "forwardPorts": [8000],
+    "postCreateCommand": "pip install -r requirements.txt"
+}
