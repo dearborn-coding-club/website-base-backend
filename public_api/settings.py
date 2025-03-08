@@ -87,6 +87,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'public_api.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'public_api.authenticate.CustomAuthentication',
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
