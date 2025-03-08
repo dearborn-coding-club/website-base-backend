@@ -73,6 +73,8 @@ website-base-backend/
 1. Make sure you install `python3` on your local machine and  have a virtual environment set up.
     - On Mac/Linux you can install Python3 using homebrew: [link 🔗](https://docs.brew.sh/Homebrew-and-Python).
     - On Windows, you can install it using the installer: [link 🔗](https://www.python.org/downloads/).
+    - If you don't have the `python3` alias set, you can configure the from alias for `python3` to point to your `python` installation (on Mac).
+        - `echo 'alias python="python3"' >> ~/.zshrc && source ~/.zshrc;`
 2. Run a Python virtual environment:
     - `python -m venv ./` or `python3 -m venv ./` if you have `Python3`.
     - Activate local python environment
@@ -81,9 +83,7 @@ website-base-backend/
         - `python -m pip install --upgrade pip` or `python3 -m pip install --upgrade pip` if you have `Python3`.
     - Install python dependencies
         - `python -m pip install -r requirements.txt` or `python3 -m pip install -r requirements.txt` if you have `Python3`.
-    
-    - If you don't have the `python3` alias set, you can configure the from alias for `python3` to point to your `python` installation (on Mac).
-        - `echo 'alias python="python3"' >> ~/.zshrc && source ~/.zshrc;`
+
 2. Run the application:
     - Run `python manage.py runserver`.
     - __OPTIONAL ON MAC__: Run `make run` to spin up everything.
