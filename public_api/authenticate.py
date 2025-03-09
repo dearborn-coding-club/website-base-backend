@@ -33,7 +33,8 @@ class CustomAuthentication(authentication.BaseAuthentication):
             # not too far in the past. If you don't pass it, it will be ignored.
             # If the above happens, it throws an `ImmatureSignatureError` exception.
             raise exceptions.AuthenticationFailed('Invalid token' + e)
-        except jwt.InvalidSignatureError as e :
+        except jwt.InvalidSignatureError as e:
             raise exceptions.AuthenticationFailed('Invalid signature' + e)
         except Exception as e:
             raise exceptions.AuthenticationFailed('Authentication' + e)
+        return (user, None)
