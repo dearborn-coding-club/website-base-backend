@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('notes/', views.notes_view, name='notes'),
     path('leetcode/', views.leetcode_view, name="leetcode"),
+    path('me/', views.me_view, name="me"),
     path('', include('core.urls')),
     path('', include('accounts.urls'))
 ]

@@ -10,6 +10,7 @@ def notes_view(_: HttpRequest) -> JsonResponse:
     }
     return JsonResponse(data)
 
+
 def leetcode_view(_: HttpRequest) -> JsonResponse:
     url = "https://leetcode.com/graphql"
     global_data = """
@@ -37,3 +38,10 @@ def leetcode_view(_: HttpRequest) -> JsonResponse:
 """
     response = requests.get(url=url, json={"query": global_data, "variables": {"username": "MgenGlder23"}, "operationName": "userSessionProgress"}, timeout=10)
     return JsonResponse(response.json())
+
+
+def me_view(req: HttpRequest) -> JsonResponse:
+    if req.user and hasattr(req.user, 'id'):
+        return JsonResponse({"user": req.user.id})
+
+    return JsonResponse({"error": "User not authenticated"}, status=401)
