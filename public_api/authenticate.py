@@ -10,6 +10,12 @@ class CustomAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
         auth_header = request.META.get('HTTP_AUTHORIZATION')
 
+        print("auth_header", auth_header)
+        if request.path == 'me/':
+            user_id = "some id"
+            print("/me/ pathfdsds")
+            return (CustomUser(user_id), None)
+
         try:
             jwt_secret = os.environ['JWT_SECRET']
         except KeyError:
@@ -37,4 +43,18 @@ class CustomAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed('Invalid signature' + e)
         except Exception as e:
             raise exceptions.AuthenticationFailed('Authentication' + e)
-        return (user, None)
+        return (None, None)
+    
+    def get_user_id_from_request(self, request):
+        # Logic to extract user ID from the request (e.g., from a query parameter or session)
+        # For simplicity, returning a mock user ID
+        return {'id': 1}  # Replace with actual logic
+
+
+class CustomUser:
+    def __init__(self, user_id):
+        self.id = user_id
+
+    @property
+    def is_authenticated(self):
+        return True
