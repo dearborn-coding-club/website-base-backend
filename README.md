@@ -78,13 +78,51 @@ website-base-backend/
 2. Run a Python virtual environment:
     - `python -m venv ./` or `python3 -m venv ./` if you have `Python3`.
     - Activate local python environment
-        - `source bin/activate`.
+        - `source bin/activate` or `.\Scripts\activate` for windows.
     - Upgrade pip
         - `python -m pip install --upgrade pip` or `python3 -m pip install --upgrade pip` if you have `Python3`.
     - Install python dependencies
         - `python -m pip install -r requirements.txt` or `python3 -m pip install -r requirements.txt` if you have `Python3`.
+    
+    - If you don't have the `python3` alias set, you can configure the from alias for `python3` to point to your `python` installation.
+        - `echo 'alias python="python3"' >> ~/.zshrc && source ~/.zshrc;`
+2. Setting up postgrest database
 
-2. Run the application:
+One way to do it ws with Docker:
+```bash
+docker run --name postgres_dcc \
+-e POSTGRES_PASSWORD=password \
+-d \
+-p 5432:5432 \
+-v postgres_dcc_data:/var/lib/postgresql/data \
+postgres:latest
+```
+
+3. Set Up Environment Variables
+   Copy the sample `.env` file and configure your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Modify `.env` as needed:
+
+```bash
+export SUPABASE_POSTGRESQL_PORT=5432
+export SUPABASE_POSTGRESQL_USER=postgres
+export SUPABASE_POSTGRESQL_HOST=localhost
+export SUPABASE_POSTGRESQL_PASSWORD=password
+export DJANGO_SECRET_KEY=your_secret_key
+```
+ 
+4. Run migration
+   ```bash
+   source .env 
+   ./manage.py migrate
+   ```
+   
+5. Run the application.
+    - Run `make run` or
     - Run `python manage.py runserver`.
     - __OPTIONAL ON MAC__: Run `make run` to spin up everything.
 
