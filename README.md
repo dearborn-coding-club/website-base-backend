@@ -78,7 +78,7 @@ website-base-backend/
 2. Run a Python virtual environment:
     - `python -m venv ./` or `python3 -m venv ./` if you have `Python3`.
     - Activate local python environment
-        - `source bin/activate`.
+        - `source bin/activate` or `.\Scripts\activate` for windows.
     - Upgrade pip
         - `python -m pip install --upgrade pip` or `python3 -m pip install --upgrade pip` if you have `Python3`.
     - Install python dependencies
