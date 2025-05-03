@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'core',
     "corsheaders",
     'rest_framework',
-    'accounts'
+    'accounts',
+    'public_api'
 ]
 
 MIDDLEWARE = [
@@ -64,7 +65,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'public_api.urls'
@@ -95,8 +95,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer' if not DEBUG else 'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
-
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

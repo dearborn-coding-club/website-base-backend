@@ -6,20 +6,26 @@ import jwt
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
-    """Custom authentication class for the API."""
+    """
+    Custom authentication class for the API.
+    """
+    public_endpoints = [
+        'profile/'
+    ]
+
     def authenticate(self, request):
+        """
+        Authenticate the user using JWT.
+        """
         auth_header = request.META.get('HTTP_AUTHORIZATION')
 
-        print("auth_header", auth_header)
-        if request.path == 'me/':
-            user_id = "some id"
-            print("/me/ pathfdsds")
-            return (CustomUser(user_id), None)
+        if request.path in self.public_endpoints:
+            return (None, None)
 
         try:
             jwt_secret = os.environ['JWT_SECRET']
-        except KeyError:
-            raise exceptions.AuthenticationFailed('JWT_SECRET not set')
+        except KeyError as exc:
+            raise exceptions.AuthenticationFailed('JWT_SECRET not set', exc)
 
         if not auth_header or not auth_header.startswith('Bearer '):
             # This doesn't seem to hit the latter half of the if statement
@@ -43,18 +49,19 @@ class CustomAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed('Invalid signature' + e)
         except Exception as e:
             raise exceptions.AuthenticationFailed('Authentication' + e)
-        return (None, None)
-    
-    def get_user_id_from_request(self, request):
-        # Logic to extract user ID from the request (e.g., from a query parameter or session)
-        # For simplicity, returning a mock user ID
-        return {'id': 1}  # Replace with actual logic
+        return (token, None)
 
 
 class CustomUser:
+    """
+    Custom user class for the API.
+    """
     def __init__(self, user_id):
         self.id = user_id
 
     @property
     def is_authenticated(self):
+        """
+        Returns True if the user is authenticated.
+        """
         return True
