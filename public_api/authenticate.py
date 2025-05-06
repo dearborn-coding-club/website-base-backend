@@ -6,14 +6,26 @@ import jwt
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
-    """Custom authentication class for the API."""
+    """
+    Custom authentication class for the API.
+    """
+    public_endpoints = [
+        'profile/'
+    ]
+
     def authenticate(self, request):
+        """
+        Authenticate the user using JWT.
+        """
         auth_header = request.META.get('HTTP_AUTHORIZATION')
+
+        if request.path in self.public_endpoints:
+            return (None, None)
 
         try:
             jwt_secret = os.environ['JWT_SECRET']
-        except KeyError:
-            raise exceptions.AuthenticationFailed('JWT_SECRET not set')
+        except KeyError as exc:
+            raise exceptions.AuthenticationFailed('JWT_SECRET not set', exc)
 
         if not auth_header or not auth_header.startswith('Bearer '):
             # This doesn't seem to hit the latter half of the if statement
@@ -37,4 +49,19 @@ class CustomAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed('Invalid signature' + e)
         except Exception as e:
             raise exceptions.AuthenticationFailed('Authentication' + e)
-        return (user, None)
+        return (token, None)
+
+
+class CustomUser:
+    """
+    Custom user class for the API.
+    """
+    def __init__(self, user_id):
+        self.id = user_id
+
+    @property
+    def is_authenticated(self):
+        """
+        Returns True if the user is authenticated.
+        """
+        return True
