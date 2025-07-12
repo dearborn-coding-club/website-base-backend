@@ -1,13 +1,17 @@
 from rest_framework import viewsets
-from .models import Profile, DCCUser
+from .models import Profile, DCCUser, Address
 import requests
 from rest_framework.response import Response
-from .serializers import ProfileSerializer, UserSerializer
+from .serializers import ProfileSerializer, UserSerializer, AddressSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = DCCUser.objects.all()
     serializer_class = UserSerializer
+
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer    
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
