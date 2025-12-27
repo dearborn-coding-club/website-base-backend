@@ -102,11 +102,11 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('SUPABASE_POSTGRESQL_NAME'),
-        'PORT': os.getenv('SUPABASE_POSTGRESQL_PORT'),
-        'USER': os.getenv('SUPABASE_POSTGRESQL_USER'),
-        'HOST': os.getenv('SUPABASE_POSTGRESQL_HOST'),
-        'PASSWORD': os.getenv('SUPABASE_POSTGRESQL_PASSWORD')
+        'NAME': os.getenv('POSTGRESQL_NAME'),
+        'PORT': os.getenv('POSTGRESQL_PORT'),
+        'USER': os.getenv('POSTGRESQL_USER'),
+        'HOST': os.getenv('POSTGRESQL_HOST'),
+        'PASSWORD': os.getenv('POSTGRESQL_PASSWORD')
     }
 }
 

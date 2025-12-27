@@ -108,10 +108,10 @@ cp .env.example .env
 Modify `.env` as needed:
 
 ```bash
-export SUPABASE_POSTGRESQL_PORT=5432
-export SUPABASE_POSTGRESQL_USER=postgres
-export SUPABASE_POSTGRESQL_HOST=localhost
-export SUPABASE_POSTGRESQL_PASSWORD=password
+export POSTGRESQL_PORT=5432
+export POSTGRESQL_USER=postgres
+export POSTGRESQL_HOST=localhost
+export POSTGRESQL_PASSWORD=password
 export DJANGO_SECRET_KEY=your_secret_key
 ```
  
