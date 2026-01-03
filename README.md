@@ -130,9 +130,10 @@ export DJANGO_SECRET_KEY=your_secret_key
 ---
 1. Ensure you have docker [desktop installed locally](https://www.docker.com/products/docker-desktop/).
 2. Make sure docker is _running_ on your machine currently (there should be an icon in the toolbar).
-3. Run `docker login`.
-4. Run `docker run -p 8000:8000 --rm -it $(docker build -q .)`.
-    - This can take quite a while.
+3. Ensure [Docker](https://docs.docker.com/get-started/get-docker/) is installed and running on your machine.
+3. Run `docker login` to log in to Docker. If you don't have an username and password for an account, you can sign up [here](https://app.docker.com/signup?state=hKFo2SBtRDliUTdZSWRQcEVaWFdHcE55bDRnSk5ibXNzRzdGbqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIE1WWVo0eDNFWDB0S2VvUXV3RDNxR2F3WXhGcm9sSXkxo2NpZNkgRmkyQ0VleDZtMzhkS1lxdnZaWVljSms5SUN0cGc3ZzQ).
+4. Run `docker compose up --build` to spin up the application, including the database and backend Python Django server.
+- Optionally, uou can run `docker run -p 8000:8000 --rm -it $(docker build -q .)` instead to only spin up the backend Python Django server.
 5. Go to http://localhost:8000 in your web browser and view the backend endpoint locally.
 
 ### Running Migrations
