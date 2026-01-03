@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-dev-secret-key-change-me}
+      - DEBUG=${DEBUG:-False}
+      - POSTGRESQL_NAME=${POSTGRESQL_NAME:-website_backend_db}
+      - POSTGRESQL_USER=${POSTGRESQL_USER:-postgres}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD:-postgres}
+      - POSTGRESQL_HOST=${POSTGRESQL_HOST:-db}
+      - POSTGRESQL_PORT=${POSTGRESQL_PORT:-5432}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-your-api-key}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+    depends_on:
+      - db
+    restart: unless-stopped
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-website_backend_db}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend build stage - builds the production assets
+  frontend-builder:
+    build:
+      context: ./website-base-frontend
+    volumes:
+      - frontend-dist:/app/dist
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - VITE_API_URL=http://localhost:8000
+    command: >
+      sh -c "npm install && npm run build && cp -r dist/* /app/dist/"
+
+  # Frontend service - serves the built assets
+  frontend:
+    image: pierrezemb/gostatic
+    ports:
+      - "3000:8043"
+    volumes:
+      - frontend-dist:/srv/http
+    depends_on:
+      - frontend-builder
+      - web
+    command: ["-fallback", "index.html"]
+
+  # Auth service (configure based on your auth repo structure)
+  # auth:
+  #   build: ./website-base-auth
+  #   ports:
+  #     - "3001:3000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db
+  #   depends_on:
+  #     - db
+
+volumes:
+  postgres_data:
+  frontend-dist:
