@@ -1,4 +1,3 @@
-
 .PHONY: run-django run run-docker setup pull-repos help
 
 help: ## Show this help message
@@ -32,6 +31,9 @@ docker-logs: ## View Docker Compose logs
 docker-full: ## Start full environment (backend + frontend + auth)
 	docker-compose -f docker-compose.full.yml up --build
 
+docker-prod: ## Start production-like environment
+	docker-compose -f docker-compose.production.yml up --build
+
 migrate: ## Run Django migrations
 	python manage.py migrate
 
@@ -50,3 +52,6 @@ lint: ## Run linting
 clean: ## Clean up Python cache files
 	find . -type d -name __pycache__ -delete
 	find . -name "*.pyc" -delete
+
+fix-docker: ## Fix frontend Docker build issues
+	./fix-frontend-docker.sh

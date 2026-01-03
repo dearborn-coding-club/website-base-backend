@@ -35,32 +35,36 @@ services:
       - "5432:5432"
 
   # Frontend service (uncomment after running ./setup.sh or ./pull-repos.sh)
-  # frontend:
-  #   build: ./website-base-frontend
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./website-base-frontend:/app
-  #     - /app/node_modules
-  #   environment:
-  #     - REACT_APP_API_URL=http://localhost:8000
-  #     - VITE_API_URL=http://localhost:8000
-  #   depends_on:
-  #     - web
-  #   command: npm run dev
+  frontend:
+    build:
+      context: ./website-base-frontend
+      dockerfile: Dockerfile.dev  # Use development Dockerfile
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./website-base-frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - web
+    command: npm run dev -- --host 0.0.0.0 --port 3000
 
   # Auth service (uncomment and configure after running ./setup.sh or ./pull-repos.sh)
-  # auth:
-  #   build: ./website-base-auth
-  #   ports:
-  #     - "3001:3000"
-  #   volumes:
-  #     - ./website-base-auth:/app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db
-  #   depends_on:
-  #     - db
+  auth:
+    build: ./website-base-auth
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./website-base-auth:/app
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db
+    depends_on:
+      - db
 
 volumes:
   postgres_data:

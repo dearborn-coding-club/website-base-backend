@@ -170,6 +170,26 @@ if [ -d "$AUTH_DIR" ]; then
     cd "$BACKEND_DIR"
 fi
 
+# Setup frontend development Dockerfile if needed
+if [ -d "$FRONTEND_DIR" ]; then
+    print_status "Configuring frontend for Docker development..."
+    
+    # Create development Dockerfile if it doesn't exist
+    if [ ! -f "$FRONTEND_DIR/Dockerfile.dev" ]; then
+        print_status "Creating development Dockerfile for frontend..."
+        cp Dockerfile.frontend.dev "$FRONTEND_DIR/Dockerfile.dev"
+        print_success "Created Dockerfile.dev in frontend repository"
+    fi
+    
+    # Check if the main Dockerfile exists and suggests the issue
+    if [ -f "$FRONTEND_DIR/Dockerfile" ]; then
+        if grep -q "COPY ./dist/" "$FRONTEND_DIR/Dockerfile"; then
+            print_warning "Frontend Dockerfile expects pre-built dist/ folder."
+            print_status "Using Dockerfile.dev for development environment."
+        fi
+    fi
+fi
+
 # Create a development guide
 print_status "Creating development guide..."
 cat > DEVELOPMENT_SETUP.md << EOF
