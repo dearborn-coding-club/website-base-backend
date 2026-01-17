@@ -18,7 +18,8 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
@@ -28,11 +29,16 @@ services:
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-website_backend_db}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD:-postgres}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # Frontend service (uncomment after running ./setup.sh or ./pull-repos.sh)
   frontend:
@@ -57,14 +63,23 @@ services:
   auth:
     build: ./website-base-auth
     ports:
-      - "3001:3000"
+      - "8080:8080"
     volumes:
       - ./website-base-auth:/app
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db?sslmode=disable
+      - POSTGRESQL_DB=${POSTGRES_DB:-website_backend_db}
+      - POSTGRESQL_USER=${POSTGRES_USER:-postgres}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD:-postgres}
+      - POSTGRESQL_HOST=${POSTGRESQL_HOST:-db}
+      - POSTGRESQL_HOST_ISOLATED=${POSTGRESQL_HOST_ISOLATED:-db}
+      - POSTGRESQL_PORT=${POSTGRESQL_PORT:-5432}
+      - POSTGRESQL_NAME=${POSTGRESQL_NAME:-website_backend_db}
+      - HMAC_SECRET=${HMAC_SECRET:-dev-hmac-secret}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
