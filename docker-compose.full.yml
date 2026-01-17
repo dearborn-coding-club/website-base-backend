@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-dev-secret-key-change-me}
+      - DEBUG=${DEBUG:-True}
+      - POSTGRESQL_NAME=${POSTGRESQL_NAME:-website_backend_db}
+      - POSTGRESQL_USER=${POSTGRESQL_USER:-postgres}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD:-postgres}
+      - POSTGRESQL_HOST=${POSTGRESQL_HOST:-db}
+      - POSTGRESQL_PORT=${POSTGRESQL_PORT:-5432}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-your-api-key}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-website_backend_db}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Frontend service (uncomment after running ./setup.sh or ./pull-repos.sh)
+  frontend:
+    build:
+      context: ./website-base-frontend
+      dockerfile: Dockerfile.dev  # Use development Dockerfile
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./website-base-frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - web
+    command: npm run dev -- --host 0.0.0.0 --port 3000
+
+  # Auth service (uncomment and configure after running ./setup.sh or ./pull-repos.sh)
+  auth:
+    build: ./website-base-auth
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./website-base-auth:/app
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/website_backend_db
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

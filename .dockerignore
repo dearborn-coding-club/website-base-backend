@@ -6,3 +6,5 @@ dist/
 lib/
 **/__pycache__
 **/pyvenv.cfg
+website-base-auth/
+website-base-frontend/
