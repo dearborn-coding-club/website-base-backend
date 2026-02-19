@@ -1,12 +1,18 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
+class Address:
+    street = models.TextField() 
+    city = models.TextField() 
+    state = models.TextField() 
+    zip_code = models.TextField()
+    country = models.TextField()
 
 class Profile (models.Model):
     role = models.TextField()
     phone_number = models.TextField()
     email = models.EmailField()
-    address = models.TextField()
+    address = Address
     about_me = models.TextField()
     leetcode_username = models.TextField()
 
