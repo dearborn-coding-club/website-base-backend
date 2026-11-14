@@ -1,48 +1,27 @@
 from rest_framework import viewsets
-from .models import Profile, DCCUser
-import requests
-from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+
+from .models import DCCUser, Profile
 from .serializers import ProfileSerializer, UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = DCCUser.objects.all()
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = DCCUser.objects.select_related('profile')
     serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
+
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        data = serializer.data
-        # Modify the data here
-        for note in data:
-            url = "https://leetcode.com/graphql"
-            global_data = """
-    query userSessionProgress($username: String!) {
-  allQuestionsCount {
-    difficulty
-    count
-  }
-  matchedUser(username: $username) {
-    submitStats {
-      acSubmissionNum {
-        difficulty
-        count
-        submissions
-      }
-      totalSubmissionNum {
-        difficulty
-        count
-        submissions
-      }
-    }
-  }
-}
-    
-"""
-            response = requests.get(url=url, json={"query": global_data, "variables": {"username": "MgenGlder23"}, "operationName": "userSessionProgress"}, timeout=10)
-            note['leetcode_stats'] = response.json()
-        return Response(data)
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return self.queryset
+        return self.queryset.filter(pk=self.request.user.profile_id)
+
+    def get_permissions(self):
+        if self.action in ('create', 'destroy'):
+            return [IsAdminUser()]
+        return super().get_permissions()
