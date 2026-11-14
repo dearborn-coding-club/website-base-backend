@@ -6,11 +6,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'role', 'phone_number', 'email', 'address', 'about_me', 'leetcode_username']
+        read_only_fields = ['role']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
+    profile = ProfileSerializer(read_only=True)
     class Meta:
         model = DCCUser
-        fields = ['id', 'profile', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'bio', 'date_joined', 'bio', 'birthdate']
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['id', 'profile', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'bio', 'date_joined', 'birthdate']

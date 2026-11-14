@@ -1,67 +1,46 @@
-"""Custom authentication class for the API."""
+"""Authenticate requests using the JWT issued by the auth service."""
 import os
-from rest_framework import authentication
-from rest_framework import exceptions
+
 import jwt
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from rest_framework import authentication, exceptions
 
 
 class CustomAuthentication(authentication.BaseAuthentication):
-    """
-    Custom authentication class for the API.
-    """
-    public_endpoints = [
-        'profile/'
-    ]
+    def authenticate_header(self, request):
+        return 'Bearer'
 
     def authenticate(self, request):
-        """
-        Authenticate the user using JWT.
-        """
-        auth_header = request.META.get('HTTP_AUTHORIZATION')
+        header = authentication.get_authorization_header(request).split()
+        if not header:
+            return None
+        if len(header) != 2 or header[0].lower() != b'bearer':
+            raise exceptions.AuthenticationFailed('Invalid Authorization header')
 
-        if request.path in self.public_endpoints:
-            return (None, None)
-
-        try:
-            jwt_secret = os.environ['JWT_SECRET']
-        except KeyError as exc:
-            raise exceptions.AuthenticationFailed('JWT_SECRET not set', exc)
-
-        if not auth_header or not auth_header.startswith('Bearer '):
-            # This doesn't seem to hit the latter half of the if statement
-            # Even when the Bearer token is missing.
-            raise exceptions.AuthenticationFailed('Authentication failed, no auth header')
-        token = auth_header.split(' ')[1]
-
-        if not token:
-            raise exceptions.AuthenticationFailed('Authentication failed, no token')
+        secret = os.getenv('JWT_SECRET')
+        if not secret:
+            raise exceptions.APIException('Token verification unavailable')
 
         try:
-            jwt.decode(token, jwt_secret, algorithms=['HS256'])
-        except jwt.ExpiredSignatureError as e:
-            raise exceptions.AuthenticationFailed('Token has expired' + e)
-        except jwt.InvalidTokenError as e:
-            # Note: If you pass the iat field, it must be a valid timestamp (not too far in the future,
-            # not too far in the past. If you don't pass it, it will be ignored.
-            # If the above happens, it throws an `ImmatureSignatureError` exception.
-            raise exceptions.AuthenticationFailed('Invalid token' + e)
-        except jwt.InvalidSignatureError as e:
-            raise exceptions.AuthenticationFailed('Invalid signature' + e)
-        except Exception as e:
-            raise exceptions.AuthenticationFailed('Authentication' + e)
-        return (token, None)
+            claims = jwt.decode(header[1], secret, algorithms=['HS256'])
+            user_id = claims.get('id')
+            username = claims.get('username')
+            if not isinstance(username, str) or not username:
+                raise ValueError('Invalid username')
+            if isinstance(user_id, bool) or not isinstance(user_id, (int, str)):
+                raise ValueError('Invalid user ID')
+            user_id = int(user_id)
+            if not 0 < user_id <= 2**63 - 1:
+                raise ValueError('Invalid user ID')
+        except (jwt.InvalidTokenError, ValueError) as exc:
+            raise exceptions.AuthenticationFailed('Invalid or expired token') from exc
 
+        user_model = get_user_model()
+        try:
+            user = user_model.objects.get(pk=user_id, username=username)
+        except (user_model.DoesNotExist, ValidationError) as exc:
+            raise exceptions.AuthenticationFailed('Invalid account') from exc
 
-class CustomUser:
-    """
-    Custom user class for the API.
-    """
-    def __init__(self, user_id):
-        self.id = user_id
-
-    @property
-    def is_authenticated(self):
-        """
-        Returns True if the user is authenticated.
-        """
-        return True
+        # The current signup service creates members with is_active=False.
+        return user, claims
